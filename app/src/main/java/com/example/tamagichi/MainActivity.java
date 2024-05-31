@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences settings;
-GameSurface.Live live=new GameSurface.Live();
+    GameSurface.Live live = new GameSurface.Live();
     private static final String PREFS_FILE = "D";
     private static final String PREF_NAME = "GAME";
 
@@ -46,10 +46,6 @@ GameSurface.Live live=new GameSurface.Live();
     protected void onStop() {
         super.onStop();
         saveName();
-        Toast.makeText(getApplicationContext(),"сохранение, не забывайте о своём питомце",Toast.LENGTH_LONG).show();
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        Toast.makeText(getApplicationContext(), "сохранение, не забывайте о своём питомце", Toast.LENGTH_LONG).show();
     }
 }

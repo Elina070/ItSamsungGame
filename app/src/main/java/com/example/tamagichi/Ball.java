@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 public class Ball extends  SpriteEnemy{
-Matrix matrix;
 
     public Ball(Bitmap sprite, float x, float y) {
         super(sprite, x, y);
@@ -18,7 +17,6 @@ Matrix matrix;
 
     void draw(Canvas canvas){
         float GlobalX= canvas.getWidth();
-        float GlobalY = canvas.getHeight();
         int frameX = (int)(currentFrame * width);
         int frameY = (int)(direction * height);
         float kx=  (GlobalX/width);

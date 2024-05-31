@@ -34,6 +34,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
     float coordx, coordy;
     Bitmap images;
+
+
     Sprite sprite;
     Sprite2 sprite2;
     Ball ball,ball1,ball2;
@@ -44,15 +46,15 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
     int globalX;
 
-    public int getGlobalX() {
-        return globalX;
-    }
-
-    public int getGlobalY() {
-        return globalY;
-    }
     int c=0;
     MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
+    public void play(){
+        mPlayer.start();
+    }
+
+    public void stop(){
+        mPlayer.stop();
+    }
     int globalY; //ААААААААААААААААААААААА ПОЧЕМУ Я ДО ЭТОГО НЕ ДОДУМАЛАААААААСЬ
     public GameSurface(Context context) {
         super(context);
@@ -119,13 +121,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
     }
 
-    public void play(){
-        mPlayer.start();
-    }
 
-    public void stop(){
-       mPlayer.stop();
-    }
     //draw
     @Override
     public void draw(Canvas canvas) {
