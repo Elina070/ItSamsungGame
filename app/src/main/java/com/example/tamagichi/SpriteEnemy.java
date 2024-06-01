@@ -19,7 +19,9 @@ public class SpriteEnemy {
     Paint paint;
     int currentFrame; //текущий кадр из строки
     int direction = 0; // направление - номер строки с кадрами
-
+    private float canvasWidth;
+    private float canvasHeight;
+    boolean isFirst = true;
 
     public float getX() {
         return x;

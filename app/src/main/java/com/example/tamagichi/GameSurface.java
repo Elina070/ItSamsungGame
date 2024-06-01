@@ -29,13 +29,11 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
     int j = 0;// это отвечает за кнопки
     int sost = 1;// состояние спрайта
-    int mm = 0;// это помыться
+    int mm = 0;//вроде это помыться
     int drawzn = 0;
 
     float coordx, coordy;
     Bitmap images;
-
-
     Sprite sprite;
     Sprite2 sprite2;
     Ball ball,ball1,ball2;
@@ -46,16 +44,16 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
     int globalX;
 
-    int c=0;
-    MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
-    public void play(){
-        mPlayer.start();
+    public int getGlobalX() {
+        return globalX;
     }
 
-    public void stop(){
-        mPlayer.stop();
+    public int getGlobalY() {
+        return globalY;
     }
-    int globalY;
+    int c=0;
+    MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
+    int globalY; //ААААААААААААААААААААААА ПОЧЕМУ Я ДО ЭТОГО НЕ ДОДУМАЛАААААААСЬ
     public GameSurface(Context context) {
         super(context);
 
@@ -121,7 +119,13 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
     }
 
+    public void play(){
+        mPlayer.start();
+    }
 
+    public void stop(){
+       mPlayer.stop();
+    }
     //draw
     @Override
     public void draw(Canvas canvas) {
@@ -135,13 +139,15 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         float y = canvas.getHeight();
         float yb = back.getHeight();
         float xb = back.getWidth();
-        float kx = x / xb;
+        float kx = x / xb;//КОЭФИЦЕЕЕЕЕЕНТЫЫЫЫЫЫ ОЧЕНЬ ВАЖНЫЕ
         float ky = y / yb;// коэфиценты на которые будет растянута картинка в зависимости от экрана
 
 
         //фон
         matrix.setScale(kx, ky, 0, 0);
-
+       //рисуем фон
+        //матрицу резерт
+        //коэфиценты растяжения кнопок
         int kbx=(int)canvas.getWidth()*1/4;
         int kCat=(int)canvas.getWidth()*1/2;
 
@@ -288,7 +294,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
             }
 
-        if (j==8){//игра с мячами
+        if (j==8){
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.GREEN);
@@ -389,7 +395,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 //            }
 }
 
-if (j==7){/////////////////////////.... игра
+if (j==7){/////////////////////////.... иг
     Paint paint = new Paint();
     paint.setStyle(Paint.Style.FILL);
     paint.setColor(Color.GREEN);
@@ -491,7 +497,7 @@ if (j==7){/////////////////////////.... игра
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-        if (j==3){// перерисовка интерфейса,
+        if (j==3){//пока это просто перерисовка интерфейса,
             canvas.drawBitmap(back, matrix, paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
@@ -506,7 +512,7 @@ if (j==7){/////////////////////////.... игра
         }
 
 
-        if (j==4){
+        if (j==4){//перерисовка интерфейса, но чтоб пользователь страдал
             canvas.drawBitmap(back, matrix, paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
@@ -547,7 +553,7 @@ if (j==7){/////////////////////////.... игра
 
                 if (x>globalX*3/11&&x<globalX*6.5/11&&y>globalY*1/8&&y<globalY*7/15) {
                     play();
-                //на спрайт можно нажимать и он будет изменять состояние 2
+                //на спрайт можно тыкать и он будет изменять состояние 2
                     class DelayThread extends Thread {
 
                         public void run() {
@@ -630,6 +636,7 @@ if (j==7){/////////////////////////.... игра
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 
+        //WAKE ME UP WAKE ME UP INSIDE CANT WAKE UP CANT WAKE UP INSIDE SAAAAAAAAAAVEEEEEEE ME
     }
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {thread.setRunning(false);boolean retry = true;while (retry) {try {thread.join();retry = false;} catch (InterruptedException e) {throw new RuntimeException(e);}}}
