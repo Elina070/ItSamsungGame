@@ -20,7 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
-    Bitmap b1, b2, b3, b4, happy, eat, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
+    Bitmap b1, b2, b3, b4, b5,b6, happy, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
     SurfaceHolder holder;
     SurfaceThread1 thread;//поток
     Bitmap back;//фон
@@ -32,7 +32,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     int sost = 1;// состояние спрайта
     int mm = 0;//вроде это помыться
     int drawzn = 0;
-
+    boolean night=false;
     float coordx, coordy;
     Bitmap images;
     Sprite sprite;
@@ -85,17 +85,21 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         b1 = BitmapFactory.decodeResource(getResources(), R.drawable.b);
         b2 = BitmapFactory.decodeResource(getResources(), R.drawable.c);
         b4 = BitmapFactory.decodeResource(getResources(), R.drawable.a);
+        back5=BitmapFactory.decodeResource(getResources(), R.drawable.back5);
+        b5=BitmapFactory.decodeResource(getResources(), R.drawable.nightb);
         r = BitmapFactory.decodeResource(getResources(), R.drawable.r);
         resert=BitmapFactory.decodeResource(getResources(), R.drawable.resert);
         food=BitmapFactory.decodeResource(getResources(), R.drawable.food);
         home=BitmapFactory.decodeResource(getResources(), R.drawable.home);
         holder = getHolder();
         b3 = BitmapFactory.decodeResource(getResources(), R.drawable.d);
+        b6 = BitmapFactory.decodeResource(getResources(), R.drawable.day);
         holder.addCallback(this);
         water = BitmapFactory.decodeResource(getResources(), R.drawable.water);
         back11 = BitmapFactory.decodeResource(getResources(), R.drawable.back1);
         images = BitmapFactory.decodeResource(getResources(), R.drawable.sprites);
         hand= BitmapFactory.decodeResource(getResources(), R.drawable.hand);
+        dark= BitmapFactory.decodeResource(getResources(), R.drawable.night);
         int x = globalX; int y=globalY;
         curX=x/3;
         curXt=x-100;
@@ -160,8 +164,12 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         Bitmap newbright = Bitmap.createScaledBitmap(right,kbx , kbx, false);
         Bitmap newhome = Bitmap.createScaledBitmap(home,kbx , kbx, false);
         Bitmap newresert = Bitmap.createScaledBitmap(resert,kbx , kbx, false);
+        Bitmap newb5 = Bitmap.createScaledBitmap(b5,kbx , kbx, false);
+        Bitmap newb6 = Bitmap.createScaledBitmap(b6,kbx , kbx, false);
 
         canvas.drawBitmap(back, matrix, paint);
+        canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+        canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
         canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
         canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
         canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -170,7 +178,6 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
         canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
         canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
-
 
 
 
@@ -211,6 +218,9 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         if (live.getLive() <=0) {
             clickPosiible=true;
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -221,7 +231,8 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
 
 
-           }
+
+        }
 
         if (j==5){
 
@@ -299,14 +310,16 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.GREEN);
-            canvas.drawBitmap(back2,matrix,paint);
+            canvas.drawBitmap(back5,matrix,paint);
 
             Random randomGenerator = new Random();
 
             canvas.drawBitmap(newleft,0,(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
-
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -396,6 +409,12 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 //            }
 }
 
+        if (night==true){
+            ////////////////////////////////
+            canvas.drawBitmap(dark,matrix,paint);
+        }
+
+
 if (j==7){/////////////////////////.... иг
     Paint paint = new Paint();
     paint.setStyle(Paint.Style.FILL);
@@ -407,7 +426,11 @@ if (j==7){/////////////////////////.... иг
     Random randomGenerator = new Random();
     int randomInt = randomGenerator.nextInt(back.getHeight()*1/6);
     canvas.drawPaint(paint);
+
     canvas.drawBitmap(back2,matrix,paint);
+    canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+    canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+    canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
     canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
     canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
     canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -417,6 +440,7 @@ if (j==7){/////////////////////////.... иг
     canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
     canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
     Bitmap newback2 = Bitmap.createScaledBitmap(back2,kbx*4 , (int) (kbx*4.9), false);
+
 
 
         sprite.draw(canvas);
@@ -500,6 +524,8 @@ if (j==7){/////////////////////////.... иг
 
         if (j==3){//пока это просто перерисовка интерфейса,
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -509,13 +535,16 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
+
             canvas.drawBitmap(newCat,(canvas.getWidth()/2)-newCat.getWidth()/2,canvas.getHeight()/2-newCat.getHeight()*7/6,paint);
         }
 
 
-        if (j==4){//перерисовка интерфейса, но чтоб пользователь страдал
+        if (j==4){
             canvas.drawBitmap(back, matrix, paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb4,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6),paint);
@@ -524,6 +553,8 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
+
+
             canvas.drawBitmap(newCat,(canvas.getWidth()/2)-newCat.getWidth()/2,canvas.getHeight()/2-newCat.getHeight()*7/6,paint);
 
 
@@ -630,6 +661,15 @@ if (j==7){/////////////////////////.... иг
                        sprite2.setTx(globalX);
                      }
 
+
+                if (x>0 && x<globalX*1/4 && y>globalY*0.9 ) {//5 кнопка ////////////
+                  night=true;
+
+                }
+                if (x>globalX*1/4 && x<globalX*2/4 && y>globalY*0.9 ) {//6 кнопка ////////////
+                    night=false;
+
+                }
                     return true;
         }return false;}
     @Override
@@ -637,7 +677,7 @@ if (j==7){/////////////////////////.... иг
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
 
-        //WAKE ME UP WAKE ME UP INSIDE CANT WAKE UP CANT WAKE UP INSIDE SAAAAAAAAAAVEEEEEEE ME
+
     }
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {thread.setRunning(false);boolean retry = true;while (retry) {try {thread.join();retry = false;} catch (InterruptedException e) {throw new RuntimeException(e);}}}
