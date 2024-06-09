@@ -26,6 +26,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     Bitmap back;//фон
     Paint paint;
     Matrix matrix;
+    Boolean clickPosiible=false;
 
     int j = 0;// это отвечает за кнопки
     int sost = 1;// состояние спрайта
@@ -208,7 +209,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
 
         //dearth
         if (live.getLive() <=0) {
-
+            clickPosiible=true;
             canvas.drawBitmap(back, matrix, paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
@@ -613,7 +614,7 @@ if (j==7){/////////////////////////.... иг
 
                     }
 //
-                  if (x>globalX*1/4 && x<globalX*2/4 && y> globalY*0.75 && y< globalY){  //резерт
+                  if (x>globalX*1/4 && x<globalX*2/4 && y> globalY*0.75 && y< globalY && clickPosiible==true){  //резерт
                         j=5;
                      live.setLive(1000);
 //

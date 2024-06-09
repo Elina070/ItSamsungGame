@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 
-public class Sprite {
+public class Sprite extends Sprite2{
     Bitmap sprite;
     float x;
 
@@ -33,6 +33,7 @@ public class Sprite {
     boolean isFirst = true;
 
     public Sprite(Bitmap sprite, float x, float y){
+        super(sprite, x, y);
         this.sprite = sprite; //общая картинка со всеми кадрами
         this.x = x;
         this.y = y;
@@ -40,6 +41,7 @@ public class Sprite {
         width = sprite.getWidth() / SPRITE_COLUMNS;
         height = sprite.getHeight() / SPRITE_ROWS;
     }
+
     void controlRoute(){
         if (x < 10 || x > canvasWidth - width - 10)
             dx = -dx;

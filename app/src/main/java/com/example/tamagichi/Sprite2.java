@@ -8,27 +8,24 @@ import android.graphics.Rect;
 public class Sprite2  {
     Bitmap sprite;
     float x;
-
+    float y; //точка на экране
     public float getX() {
         return x;
     }
-
     public float getY() {
         return y;
     }
 
-    float y; //точка на экране
     float dx,dy;
     float tx,ty;
     float height,widths;
     Paint paint;
-    final int Rows=1;
-    final int Colums=1;
     int currentFrame;
     int direction=0;
     boolean isFirst=true;//номер строки
     private float canvasWidth;
     private float canvasHeight;
+
 
     public Sprite2(Bitmap sprite,float x,float y){
 
@@ -42,6 +39,7 @@ public class Sprite2  {
     }
 
 
+
     void Control(){
 
         if (x<10||x>canvasWidth*3/4){
@@ -51,6 +49,7 @@ public class Sprite2  {
             dy=-dy;
         }
     }
+
     void draw(Canvas canvas){
         if (isFirst){ canvasWidth=canvas.getWidth();
             canvasHeight=canvas.getHeight();
@@ -69,9 +68,8 @@ public class Sprite2  {
 
         Control();
     }
+
     void Calculate(){
-
-
         float x1 = tx - x;
         float y1 = ty - y;
         float speed=40;

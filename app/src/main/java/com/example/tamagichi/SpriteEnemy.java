@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class SpriteEnemy {
+public class SpriteEnemy extends Sprite2 {
     Bitmap sprite;
     float x, y; //координаты точки на экране
     float dx, dy;
@@ -33,6 +33,7 @@ public class SpriteEnemy {
 
 
     public SpriteEnemy(Bitmap sprite, float x, float y){
+        super(sprite, x, y);
         this.sprite = sprite; //общая картинка со всеми кадрами
         this.x = x;
         this.y = y;
