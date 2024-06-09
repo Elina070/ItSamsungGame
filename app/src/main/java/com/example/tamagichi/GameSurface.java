@@ -54,7 +54,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
     }
     int c=0;
     MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
-    int globalY; //ААААААААААААААААААААААА ПОЧЕМУ Я ДО ЭТОГО НЕ ДОДУМАЛАААААААСЬ
+    int globalY;
     public GameSurface(Context context) {
         super(context);
 
