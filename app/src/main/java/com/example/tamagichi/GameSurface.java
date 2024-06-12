@@ -20,7 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
-    Bitmap b1, b2, b3, b4, b5,b6,b7,flower, b8, happy,back4, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
+    Bitmap b1, b2, b3, b4, b5,b6,b7,flower,q, b8,load, happy,back4, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
     SurfaceHolder holder;
     SurfaceThread1 thread;//поток
     Bitmap back;//фон
@@ -60,6 +60,8 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
         confused = BitmapFactory.decodeResource(getResources(), R.drawable.confused);
         sleep = BitmapFactory.decodeResource(getResources(), R.drawable.sleep);
         left= BitmapFactory.decodeResource(getResources(), R.drawable.left);
+        load= BitmapFactory.decodeResource(getResources(), R.drawable.load);
+        q=BitmapFactory.decodeResource(getResources(), R.drawable.q);
         right= BitmapFactory.decodeResource(getResources(), R.drawable.right);
         walk = BitmapFactory.decodeResource(getResources(), R.drawable.walk);
         happy = BitmapFactory.decodeResource(getResources(), R.drawable.happy);
@@ -147,6 +149,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
         Bitmap newb2 = Bitmap.createScaledBitmap(b2,kbx , kbx, false);
         Bitmap newb3 = Bitmap.createScaledBitmap(b3,kbx , kbx, false);
         Bitmap newb4 = Bitmap.createScaledBitmap(b4,kbx , kbx, false);
+        Bitmap newbq = Bitmap.createScaledBitmap(q,kbx*1/2 , kbx*1/2, false);
         Bitmap newleft = Bitmap.createScaledBitmap(left,kbx , kbx, false);
         Bitmap newbright = Bitmap.createScaledBitmap(right,kbx , kbx, false);
         Bitmap newhome = Bitmap.createScaledBitmap(home,kbx , kbx, false);
@@ -168,7 +171,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
         canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
         canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
         canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
-
+        canvas.drawBitmap(newbq,0,0,paint);
 
 
         //изменение состояний спрайта
@@ -209,6 +212,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
             clickPosiible=true;
 
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newbq,0,0,paint);
             canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
@@ -222,7 +226,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
             canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
-
+            canvas.drawBitmap(newbq,0,0,paint);
 
 
         }
@@ -320,7 +324,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
             canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
-
+            canvas.drawBitmap(newbq,0,0,paint);
             sprite2.draw(canvas);
             if (sprite2.getX()<-50){
                 sprite2=new Sprite2(happy, globalX*1/3, (float) (globalY*1/2.5));
@@ -413,7 +417,7 @@ if (j==7){/////////////////////////.... иг
     canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
     canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
     Bitmap newback2 = Bitmap.createScaledBitmap(back2,kbx*4 , (int) (kbx*4.9), false);
-
+    canvas.drawBitmap(newbq,0,0,paint);
 
 
         sprite.draw(canvas);
@@ -510,7 +514,7 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
-
+            canvas.drawBitmap(newbq,0,0,paint);
             canvas.drawBitmap(newCat,(canvas.getWidth()/2)-newCat.getWidth()/2,canvas.getHeight()/2-newCat.getHeight()*7/6,paint);
         }
 
@@ -531,7 +535,7 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
 
-
+            canvas.drawBitmap(newbq,0,0,paint);
             canvas.drawBitmap(newCat,(canvas.getWidth()/2)-newCat.getWidth()/2,canvas.getHeight()/2-newCat.getHeight()*7/6,paint);
         }
         if (j==10) {
@@ -550,6 +554,7 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
             Random randomGenerator = new Random();
+            canvas.drawBitmap(newbq,0,0,paint);
             int randomInt = randomGenerator.nextInt(globalX*1/4);
 
             if (sprite.getX()<0){
@@ -596,6 +601,23 @@ if (j==7){/////////////////////////.... иг
 
 
 
+        }
+        if (j==11){
+            canvas.drawBitmap(load,matrix,paint);
+            class DelayThread extends Thread {//режим ожидания для изменения спрайта
+                public void run() {
+                    try {
+                        Thread.sleep(15000);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    j = 0; // спрайт ест
+                    }}
+            DelayThread delayThread = new DelayThread();
+            delayThread.start();
         }
 
         if (drawzn==1){
@@ -719,6 +741,13 @@ if (j==7){/////////////////////////.... иг
                     sprite.setTy(globalY*1/9);
 
                 }
+
+                if ( x>0 && x<globalX*1/8&& y<globalX*1/8) {// информация ////////////
+
+                   j=11;
+
+                }
+
 
                     return true;
         }return false;}
