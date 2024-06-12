@@ -27,9 +27,9 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     Paint paint;
     Matrix matrix;
     Boolean clickPosiible=false;
-    int j = 0;// это отвечает за кнопки
+    int j = 0;// кнопки
     int sost = 1;// состояние спрайта
-    int mm = 0;//вроде это помыться
+    int mm = 0;// пузырики
     int drawzn = 0;
     boolean night=false;
     float coordx, coordy;
@@ -108,9 +108,6 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
         spriteEnemy2 =new SpriteEnemy(trees,0,0);//верх
         spriteEnemy3 =new SpriteEnemy(trees,0,0);//низ
         spriteEnemy11 =new SpriteEnemy(flower,-100,-100);
-
-
-
     }
 
     public void play(){
@@ -119,6 +116,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
     public void stop(){
        mPlayer.stop();
     }
+
 
     //draw
     @Override
@@ -133,9 +131,8 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
         float y = canvas.getHeight();
         float yb = back.getHeight();
         float xb = back.getWidth();
-        float kx = x / xb;//КОЭФИЦЕЕЕЕЕЕНТЫЫЫЫЫЫ ОЧЕНЬ ВАЖНЫЕ
+        float kx = x / xb;
         float ky = y / yb;// коэфиценты на которые будет растянута картинка в зависимости от экрана
-
 
         //фон
         matrix.setScale(kx, ky, 0, 0);
@@ -227,8 +224,6 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newbq,0,0,paint);
-
-
         }
 
         if (j==5){
@@ -385,12 +380,11 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
 }
 
         if (night==true){
-            ////////////////////////////////
             canvas.drawBitmap(dark,matrix,paint);
         }
 
 
-if (j==7){/////////////////////////.... иг
+if (j==7){
     Paint paint = new Paint();
     paint.setStyle(Paint.Style.FILL);
     paint.setColor(Color.GREEN);
@@ -401,7 +395,6 @@ if (j==7){/////////////////////////.... иг
     Random randomGenerator = new Random();
     int randomInt = randomGenerator.nextInt(back.getHeight()*1/6);
     canvas.drawPaint(paint);
-
     canvas.drawBitmap(back2,matrix,paint);
     canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
     canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
@@ -487,18 +480,10 @@ if (j==7){/////////////////////////.... иг
         spriteEnemy2=new SpriteEnemy(trees, globalX+randomInt1*2, 0+randomInt);
         spriteEnemy2.draw(canvas);
         spriteEnemy2.setTx(0);}
-
-//    if (spriteEnemy3.getX() < -globalX*1/3){//низ
-//         randomInt1 = randomGenerator.nextInt(globalX * 1 / 5);
-//        randomInt = randomGenerator.nextInt(globalY*1/2);
-//        spriteEnemy3=new SpriteEnemy(trees, globalX+randomInt1, randomInt);
-//        spriteEnemy3.draw(canvas);
-//        spriteEnemy3.setTx(0);}
     if (sprite.getX()==spriteEnemy.getX()){j=0;}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-        if (j==3){//пока это просто перерисовка интерфейса,
+        if (j==3){
             canvas.drawBitmap(back, matrix, paint);
             canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
@@ -556,16 +541,13 @@ if (j==7){/////////////////////////.... иг
             Random randomGenerator = new Random();
             canvas.drawBitmap(newbq,0,0,paint);
             int randomInt = randomGenerator.nextInt(globalX*1/4);
-
             if (sprite.getX()<0){
                 sprite=new Sprite(images, globalX*1/4, (float) (globalY*1/2.8));
                 sprite.draw(canvas);
             }
             sprite.draw(canvas);
-
             if (sprite.getY()<=globalY*1/6){
                 sprite.setTy(10000);}
-
            if (sprite.getY()>globalY*1/2.8){
                 sprite.stop(); // прыжок
             }
@@ -573,9 +555,6 @@ if (j==7){/////////////////////////.... иг
             spriteEnemy11.draw(canvas);
 
             spriteEnemy11.setTx(-10000);
-
-
-
 
             if (  Math.abs(sprite.getX()-spriteEnemy11.getX())<=globalX*1/10 &&
                     Math.abs(sprite.getY()-spriteEnemy11.getY())<=globalY*1/10
@@ -604,7 +583,7 @@ if (j==7){/////////////////////////.... иг
         }
         if (j==11){
             canvas.drawBitmap(load,matrix,paint);
-            class DelayThread extends Thread {//режим ожидания для изменения спрайта
+            class DelayThread extends Thread {
                 public void run() {
                     try {
                         Thread.sleep(15000);
@@ -612,9 +591,7 @@ if (j==7){/////////////////////////.... иг
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
-                    j = 0; // спрайт ест
+                    j = 0;
                     }}
             DelayThread delayThread = new DelayThread();
             delayThread.start();
@@ -645,7 +622,7 @@ if (j==7){/////////////////////////.... иг
 
                 if (x>globalX*3/11&&x<globalX*6.5/11&&y>globalY*1/8&&y<globalY*7/15) {
                     play();
-                //на спрайт можно тыкать и он будет изменять состояние 2
+                //на спрайт можно кликать и он будет изменять состояние 2
                     class DelayThread extends Thread {
 
                         public void run() {
@@ -661,7 +638,7 @@ if (j==7){/////////////////////////.... иг
                     delayThread.start();
                 }
                 if (x>globalX*6.5/11&&x<globalX*8/11&&y>globalY*3.5/15&&y<globalY*7/15) {
-                    //на спрайт можно тыкать и он будет изменять состояние 1
+                    //на спрайт можно кликать и он будет изменять состояние 1
                     class DelayThread extends Thread {
 
                         public void run() {
