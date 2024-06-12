@@ -20,7 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
-    Bitmap b1, b2, b3, b4, b5,b6,b7, b8, happy,back4, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
+    Bitmap b1, b2, b3, b4, b5,b6,b7,flower, b8, happy,back4, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
     SurfaceHolder holder;
     SurfaceThread1 thread;//поток
     Bitmap back;//фон
@@ -40,7 +40,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     float curX, curY,curXt;
     Live live=new Live();
     int globalX;
-SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
+SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2,spriteEnemy11;
     int c=0;
 
     MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
@@ -56,6 +56,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         }, 0, 1000*60*10);//10 mинут
 
         trees = BitmapFactory.decodeResource(getResources(),R.drawable.tree);
+        flower=BitmapFactory.decodeResource(getResources(),R.drawable.flower);
         confused = BitmapFactory.decodeResource(getResources(), R.drawable.confused);
         sleep = BitmapFactory.decodeResource(getResources(), R.drawable.sleep);
         left= BitmapFactory.decodeResource(getResources(), R.drawable.left);
@@ -104,6 +105,8 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         spriteEnemy1 =new SpriteEnemy(trees,0,0);//низ
         spriteEnemy2 =new SpriteEnemy(trees,0,0);//верх
         spriteEnemy3 =new SpriteEnemy(trees,0,0);//низ
+        spriteEnemy11 =new SpriteEnemy(flower,-100,-100);
+
 
 
     }
@@ -546,18 +549,49 @@ if (j==7){/////////////////////////.... иг
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
+            Random randomGenerator = new Random();
+            int randomInt = randomGenerator.nextInt(globalX*1/4);
+
             if (sprite.getX()<0){
                 sprite=new Sprite(images, globalX*1/4, (float) (globalY*1/2.8));
                 sprite.draw(canvas);
             }
             sprite.draw(canvas);
 
-            if (sprite.getY()<globalY*1/6){
+            if (sprite.getY()<=globalY*1/6){
                 sprite.setTy(10000);}
 
            if (sprite.getY()>globalY*1/2.8){
                 sprite.stop(); // прыжок
             }
+
+            spriteEnemy11.draw(canvas);
+
+            spriteEnemy11.setTx(-10000);
+
+
+
+
+            if (  Math.abs(sprite.getX()-spriteEnemy11.getX())<=globalX*1/10 &&
+                    Math.abs(sprite.getY()-spriteEnemy11.getY())<=globalY*1/10
+            ){
+
+                sprite=new Sprite(images, globalX*1/4, (float) (globalY*1/6));
+                sprite.draw(canvas);
+                j=0;
+
+            }
+
+
+            if (spriteEnemy11.getX()<-globalX*1/3-randomInt){
+
+                spriteEnemy11=new SpriteEnemy(flower, globalX+randomInt*2, (float) (globalY*1/2.8));
+                spriteEnemy11.draw(canvas);
+                randomInt = randomGenerator.nextInt(60 - 40 + 1) + 20;
+                spriteEnemy11.setScore(randomInt);
+                spriteEnemy11.setTx(0);}
+
+            if (sprite.getX()==spriteEnemy11.getX()){j=0;}
 
 
 

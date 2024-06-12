@@ -23,6 +23,12 @@ public class SpriteEnemy extends Sprite2 {
     private float canvasHeight;
     boolean isFirst = true;
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    int score=40;
+
     public float getX() {
         return x;
     }
@@ -60,7 +66,7 @@ public class SpriteEnemy extends Sprite2 {
 
     void calculate(){
         float x1 = tx - x;
-        float speed = 40;
+        float speed = score;
         dx = x1 / (float) Math.sqrt(x1 * x1 + x1 * x1) * speed;
     }
 
