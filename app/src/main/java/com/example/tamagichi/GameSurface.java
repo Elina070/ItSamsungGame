@@ -20,14 +20,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
-    Bitmap b1, b2, b3, b4, b5,b6, happy, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
+    Bitmap b1, b2, b3, b4, b5,b6,b7, b8, happy,back4, back5,eat, dark, done, normal, sad,hand, r, confused, sleep, walk, water,back11,back2,trees,left,right,resert,home,myach,food;//спрайт
     SurfaceHolder holder;
     SurfaceThread1 thread;//поток
     Bitmap back;//фон
     Paint paint;
     Matrix matrix;
     Boolean clickPosiible=false;
-
     int j = 0;// это отвечает за кнопки
     int sost = 1;// состояние спрайта
     int mm = 0;//вроде это помыться
@@ -40,26 +39,14 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     Ball ball,ball1,ball2;
     float curX, curY,curXt;
     Live live=new Live();
-
-SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
-
     int globalX;
-
-    public int getGlobalX() {
-        return globalX;
-    }
-
-    public int getGlobalY() {
-        return globalY;
-    }
+SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
     int c=0;
+
     MediaPlayer mPlayer= MediaPlayer.create(this.getContext(), R.raw.meow);
     int globalY;
     public GameSurface(Context context) {
         super(context);
-
-
-
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -82,9 +69,11 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         eat = BitmapFactory.decodeResource(getResources(), R.drawable.eat);
         back2 = BitmapFactory.decodeResource(getResources(), R.drawable.back2);
         back = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        b7=BitmapFactory.decodeResource(getResources(), R.drawable.up);
         b1 = BitmapFactory.decodeResource(getResources(), R.drawable.b);
         b2 = BitmapFactory.decodeResource(getResources(), R.drawable.c);
         b4 = BitmapFactory.decodeResource(getResources(), R.drawable.a);
+        b8=BitmapFactory.decodeResource(getResources(), R.drawable.game3);
         back5=BitmapFactory.decodeResource(getResources(), R.drawable.back5);
         b5=BitmapFactory.decodeResource(getResources(), R.drawable.nightb);
         r = BitmapFactory.decodeResource(getResources(), R.drawable.r);
@@ -95,6 +84,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         b3 = BitmapFactory.decodeResource(getResources(), R.drawable.d);
         b6 = BitmapFactory.decodeResource(getResources(), R.drawable.day);
         holder.addCallback(this);
+        back4=BitmapFactory.decodeResource(getResources(), R.drawable.back4);
         water = BitmapFactory.decodeResource(getResources(), R.drawable.water);
         back11 = BitmapFactory.decodeResource(getResources(), R.drawable.back1);
         images = BitmapFactory.decodeResource(getResources(), R.drawable.sprites);
@@ -104,18 +94,12 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         curX=x/3;
         curXt=x-100;
         curY=y/3;
-
-
-
         ball=new Ball(myach,0,0);
         ball1=new Ball(myach,back.getWidth()/2,0);
         ball2=new Ball(myach,back.getWidth(),0);
-
         curY= (float) (y*1/2.5);
-
         sprite=new Sprite(images, -100, -100);
         sprite2=new Sprite2(happy,-100,-100);
-
         spriteEnemy =new SpriteEnemy(trees,0,0);//верх   (чётные сверху, нечётные снизу)
         spriteEnemy1 =new SpriteEnemy(trees,0,0);//низ
         spriteEnemy2 =new SpriteEnemy(trees,0,0);//верх
@@ -127,10 +111,10 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
     public void play(){
         mPlayer.start();
     }
-
     public void stop(){
        mPlayer.stop();
     }
+
     //draw
     @Override
     public void draw(Canvas canvas) {
@@ -166,10 +150,13 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         Bitmap newresert = Bitmap.createScaledBitmap(resert,kbx , kbx, false);
         Bitmap newb5 = Bitmap.createScaledBitmap(b5,kbx , kbx, false);
         Bitmap newb6 = Bitmap.createScaledBitmap(b6,kbx , kbx, false);
-
+        Bitmap newb7= Bitmap.createScaledBitmap(b7,kbx , kbx, false);
+        Bitmap newb8= Bitmap.createScaledBitmap(b8,kbx , kbx, false);
         canvas.drawBitmap(back, matrix, paint);
+        canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
         canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
         canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+        canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
         canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
         canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
         canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
@@ -217,14 +204,17 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         //dearth
         if (live.getLive() <=0) {
             clickPosiible=true;
+
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
-
+            canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb4,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6),paint);
+
             canvas.drawBitmap(newleft,0,(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
@@ -235,7 +225,6 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
         }
 
         if (j==5){
-
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
             canvas.drawPaint(paint);
@@ -247,8 +236,7 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    j=4;//////////////////////////////////////////////////////////////////////////////////;
+                    j=4;
                 }}
 
             DelayThread delayThread = new DelayThread();
@@ -313,7 +301,8 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
             canvas.drawBitmap(back5,matrix,paint);
 
             Random randomGenerator = new Random();
-
+            canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newleft,0,(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
             canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
@@ -342,33 +331,19 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
             ball.setTy(c);
             ball1.setTy(c);
             ball2.setTy(c);
-
-
-
-
             if (  Math.abs(sprite2.getX()-ball.getX())<=globalX*1/12 &&
                     Math.abs(sprite2.getY()-ball.getY())<=globalY*1/12
             ){
                 j=0;
-
-
             }
             if (  Math.abs(sprite2.getX()-ball1.getX())<=globalX*1/12 &&
                     Math.abs(sprite2.getY()-ball1.getY())<=globalY*1/12){
                 j=0;
-
-
-
             }
             if (  Math.abs(sprite2.getX()-ball2.getX())<=globalX*1/12 &&
                     Math.abs(sprite2.getY()-ball2.getY())<=globalY*1/12){
                j=0;
-
-
             }
-
-
-
             int randomInt1,randomInt2,randomInt3,randomInt4 ;
             randomInt1 = randomGenerator.nextInt(globalX);
             randomInt2 = randomGenerator.nextInt(globalX);
@@ -400,13 +375,6 @@ SpriteEnemy spriteEnemy,spriteEnemy1,spriteEnemy3,spriteEnemy2;
                 ball.draw(canvas);
                 ball.setTy(c);
              }
-
-//            if (ball1.getY() > globalY){
-//
-//                ball1=new Ball(myach,randomInt3,-randomInt4*4);
-//                ball1.draw(canvas);
-//                ball1.setTy(c);
-//            }
 }
 
         if (night==true){
@@ -428,6 +396,8 @@ if (j==7){/////////////////////////.... иг
     canvas.drawPaint(paint);
 
     canvas.drawBitmap(back2,matrix,paint);
+    canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+    canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
     canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
     canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
     canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
@@ -449,7 +419,6 @@ if (j==7){/////////////////////////.... иг
     spriteEnemy1.draw(canvas);
     spriteEnemy2.draw(canvas);
     spriteEnemy3.draw(canvas);
-
     spriteEnemy1.setTx(-10000);
     spriteEnemy.setTx(-10000);
     spriteEnemy2.setTx(-1000);
@@ -460,29 +429,29 @@ if (j==7){/////////////////////////.... иг
     if (  Math.abs(sprite.getX()-spriteEnemy.getX())<=globalX*1/10 &&
             Math.abs(sprite.getY()-spriteEnemy.getY())<=globalY*1/10
     ){
-        j=0;
+
         sprite=new Sprite(images, globalX*1/3, (float) (globalY*2/3.6));
         sprite.draw(canvas);
-
+        j=0;
 
     }
 
     if (  Math.abs(sprite.getX()-spriteEnemy1.getX())<=globalX*1/10 &&
             Math.abs(sprite.getY()-spriteEnemy1.getY())<=globalY*1/10
     ){
-        j=0;
+
         sprite=new Sprite(images, globalX*1/3, (float) (globalY*2/3.6));
         sprite.draw(canvas);
-
+        j=0;
 
     }
     if (  Math.abs(sprite.getX()-spriteEnemy2.getX())<=globalX*1/10 &&
             Math.abs(sprite.getY()-spriteEnemy2.getY())<=globalY*1/10
     ){
-        j=0;
+
         sprite=new Sprite(images, globalX*1/3, (float) (globalY*2/3.6));
         sprite.draw(canvas);
-
+        j=0;
 
     }
 
@@ -524,10 +493,13 @@ if (j==7){/////////////////////////.... иг
 
         if (j==3){//пока это просто перерисовка интерфейса,
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
+
             canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newb4,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6),paint);
             canvas.drawBitmap(newleft,0,(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
@@ -542,7 +514,9 @@ if (j==7){/////////////////////////.... иг
 
         if (j==4){
             canvas.drawBitmap(back, matrix, paint);
+            canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
             canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
@@ -556,6 +530,36 @@ if (j==7){/////////////////////////.... иг
 
 
             canvas.drawBitmap(newCat,(canvas.getWidth()/2)-newCat.getWidth()/2,canvas.getHeight()/2-newCat.getHeight()*7/6,paint);
+        }
+        if (j==10) {
+            canvas.drawBitmap(back4,matrix,paint);
+            canvas.drawBitmap(newb8,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb1,0,(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newb7,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb5,0,(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb6,(int)(newb1.getWidth()),(int)(canvas.getHeight()-newb5.getHeight()),paint);
+            canvas.drawBitmap(newb2,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newb3,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newb4,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6),paint);
+            canvas.drawBitmap(newleft,0,(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
+            canvas.drawBitmap(newbright,(int)(newb1.getWidth()*3),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
+            canvas.drawBitmap(newresert,(int)(newb1.getWidth()),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
+            canvas.drawBitmap(newhome,(int)(newb1.getWidth()*2),(int)(canvas.getHeight()/1.6)+(int)newb4.getWidth(),paint);
+            Bitmap newCat = Bitmap.createScaledBitmap(normal,kCat , kCat, false);
+            if (sprite.getX()<0){
+                sprite=new Sprite(images, globalX*1/4, (float) (globalY*1/2.8));
+                sprite.draw(canvas);
+            }
+            sprite.draw(canvas);
+
+            if (sprite.getY()<globalY*1/6){
+                sprite.setTy(10000);}
+
+           if (sprite.getY()>globalY*1/2.8){
+                sprite.stop(); // прыжок
+            }
+
+
 
 
         }
@@ -639,24 +643,24 @@ if (j==7){/////////////////////////.... иг
 
                    }
 //
-                 if (x>0 && x<globalX*1/4 && y> globalY*0.75 && y< globalY){//вверх влево
+                 if (x>0 && x<globalX*1/4 && y> globalY*0.75 && y< globalY*6/7){//вверх влево
                       sprite.setTy(0);
                        sprite2.setTx(0);
 
                     }
 //
-                  if (x>globalX*1/4 && x<globalX*2/4 && y> globalY*0.75 && y< globalY && clickPosiible==true){  //резерт
+                  if (x>globalX*1/4 && x<globalX*2/4 && y> globalY*0.75 && y< globalY*6/7 && clickPosiible==true){  //резерт
                         j=5;
                      live.setLive(1000);
 //
                    }
-                    if (x>globalX*2/4 && x<globalX*3/4 && y> globalY*0.75 && y< globalY){  //домой
-                        j=3;
+                    if (x>globalX*2/4 && x<globalX*3/4 && y> globalY*0.75 && y< globalY*6/7){  //домой
+                        j=0;
                         live.LiveCPlus();
 
                     }
 
-                    if (x>globalX*3/4 && x<globalX && y> globalY*0.75 && y< globalY){//вниз вправо
+                    if (x>globalX*3/4 && x<globalX && y> globalY*0.75 && y< globalY*6/7){//вниз вправо
                         sprite.setTy(100000);
                        sprite2.setTx(globalX);
                      }
@@ -668,8 +672,20 @@ if (j==7){/////////////////////////.... иг
                 }
                 if (x>globalX*1/4 && x<globalX*2/4 && y>globalY*0.9 ) {//6 кнопка ////////////
                     night=false;
+                    sost=1;
 
                 }
+
+                if ( x>globalX*3/4 && x<globalX&& y>globalY*0.9 ) {//6 кнопка ////////////
+                 j=10;
+
+                }
+                if ( x>globalX*2/4 && x<globalX*3/4&& y>globalY*0.9 ) {//6 кнопка ////////////
+
+                    sprite.setTy(globalY*1/9);
+
+                }
+
                     return true;
         }return false;}
     @Override

@@ -48,6 +48,10 @@ public class Sprite extends Sprite2{
         if (y < 10 || y > canvasHeight*2/3.5)
             dy = -dy;
     }
+    void stop (){
+        dx=0;
+        dy=0;
+    }
     void draw(Canvas canvas){
         if (isFirst) {
             canvasWidth = canvas.getWidth();
@@ -65,6 +69,7 @@ public class Sprite extends Sprite2{
         controlRoute();
 
     }
+
     void calculate(){
         float y1 = ty - y;
         float speed = 40;
